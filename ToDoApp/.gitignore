@@ -1,0 +1,13 @@
+# Sanal ortam
+venv/
+
+# Python derlenmiş dosyalar
+__pycache__/
+*.pyc
+*.pyo
+
+# Django varsayılan veritabanı dosyası
+db.sqlite3
+
+# macOS gereksiz dosyaları
+.DS_Store
