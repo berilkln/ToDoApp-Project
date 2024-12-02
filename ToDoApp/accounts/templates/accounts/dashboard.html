@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Welcome to your Dashboard, {{ user.username }}!</h1>
+    <p>Your tasks and profile details will appear here.</p>
+    <a href="{% url 'profile' %}" class="btn btn-primary">Go to Profile</a>
+    <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+</div>
+{% endblock %}
