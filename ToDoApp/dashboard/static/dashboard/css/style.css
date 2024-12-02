@@ -1,0 +1,14 @@
+.sidebar {
+    background-color: #cb4806; /* Açık gri Bootstrap varsayılanı */
+    border-right: 10px solid #ebae1e; /* İnce ayırıcı çizgi */
+    height: 100vh; /* Tum ekran yüksekliği */
+    padding: 20px; /* İç boşluk */
+}
+
+.nav-link.active {
+    background-color: #4e9c27; /* Aktif link rengi (Bootstrap mavi) */
+    color: white; /* Yazı rengi */
+}
+.nav-link {
+    margin-bottom: 10px; /* Alt boşluk */
+}
