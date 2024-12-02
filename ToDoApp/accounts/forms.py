@@ -55,38 +55,12 @@ class UserRegistrationForm(forms.ModelForm):
         return user
 
 
-# Kullanıcı Bilgilerini Güncelleme Formu
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email']
-        widgets = {
-            'username': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Enter your username',
-            }),
-            'email': forms.EmailInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Enter your email',
-            }),
-        }
-        labels = {
-            'username': 'Username',
-            'email': 'Email Address',
-        }
 
-
-# Profil Bilgilerini Güncelleme Formu (örneğin profil fotoğrafı ve doğum tarihi)
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['birth_date', 'profile_picture']
-        widgets = {
-            'birth_date': forms.DateInput(attrs={
-                'class': 'form-control',
-                'type': 'date',
-            }),
-            'profile_picture': forms.ClearableFileInput(attrs={
-                'class': 'form-control-file',
-            }),
-        }
