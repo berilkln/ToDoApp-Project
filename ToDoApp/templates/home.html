@@ -4,8 +4,14 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1>Welcome to ToDoApp!</h1>
-    <p>This is your simple and efficient task management system.</p>
-    <a href="{% url 'register' %}" class="btn btn-primary">Get Started</a>
+    {% if user.is_authenticated %}
+        <h1>Welcome back, {{ user.username }}!</h1>
+        <p>Manage your tasks efficiently using ToDoApp.</p>
+        <a href="{% url 'profile' %}" class="btn btn-success">Go to Profile</a>
+    {% else %}
+        <h1>Welcome to ToDoApp!</h1>
+        <p>This is your simple and efficient task management system.</p>
+        <a href="{% url 'register' %}" class="btn btn-primary">Get Started</a>
+    {% endif %}
 </div>
 {% endblock %}
