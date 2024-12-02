@@ -2,6 +2,7 @@
 
 {% block title %}Login{% endblock %}
 
+
 {% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -11,9 +12,17 @@
                     <h2>Login</h2>
                 </div>
                 <div class="card-body">
-                    <form method="post" novalidate>
+                    
+                    <form method="post" action={% url 'login'%} novalidate>
                         {% csrf_token %}
-                        
+                        {% if messages %}
+                            <div class="alert alert-danger">
+                                {% for message in messages %}
+                                    {{ message}}
+                                {% endfor %}
+                            </div>
+                        {% endif %}    
+
                         <!-- Username Field -->
                         <div class="mb-3">
                             <label for="id_username" class="form-label">Username</label>
