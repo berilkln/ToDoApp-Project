@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import Profile
 
+# Kullanıcı Kaydı Formu
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={
@@ -36,6 +37,7 @@ class UserRegistrationForm(forms.ModelForm):
             'email': 'Email Address',
         }
 
+    # Şifre Doğrulama
     def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
@@ -43,15 +45,48 @@ class UserRegistrationForm(forms.ModelForm):
         if password != password_confirm:
             raise forms.ValidationError("Passwords do not match.")
         return cleaned_data
-    
 
+    # Kullanıcı kaydını yaparken şifreyi şifreli kaydetmek için
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password"])  # Şifreyi şifrele
+        if commit:
+            user.save()
+        return user
+
+
+# Kullanıcı Bilgilerini Güncelleme Formu
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email']
+        widgets = {
+            'username': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your username',
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your email',
+            }),
+        }
+        labels = {
+            'username': 'Username',
+            'email': 'Email Address',
+        }
 
+
+# Profil Bilgilerini Güncelleme Formu (örneğin profil fotoğrafı ve doğum tarihi)
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['birth_date', 'profile_picture']
-
+        widgets = {
+            'birth_date': forms.DateInput(attrs={
+                'class': 'form-control',
+                'type': 'date',
+            }),
+            'profile_picture': forms.ClearableFileInput(attrs={
+                'class': 'form-control-file',
+            }),
+        }
