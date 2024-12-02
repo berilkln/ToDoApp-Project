@@ -6,10 +6,6 @@ from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.decorators import login_required
 from .models import Profile
 
-@login_required
-def dashboard(request):
-    return render(request, 'accounts/dashboard.html')
-
 
 #Login Function
 def user_login(request):
@@ -19,7 +15,7 @@ def user_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('dashboard')  # Doğru yönlendirme
+            return redirect('dashboard_home')  # Doğru yönlendirme
         else:
             messages.error(request, 'Invalid username or password.')
     return render(request, 'accounts/login.html')

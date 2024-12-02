@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %} <link rel="stylesheet" href="{% static 'dashboard/css/style.css' %}"> {% endblock %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            {% include 'dashboard/partials/_sidebar.html' %}
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-9">
+            <h1>Welcome to your Dashboard, {{ user.username }}!</h1>
+            <p>Your tasks and profile details will appear here.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js_files %}{% endblock %}
