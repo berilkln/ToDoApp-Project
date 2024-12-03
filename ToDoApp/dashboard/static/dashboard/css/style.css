@@ -1,6 +1,6 @@
 .sidebar {
-    background-color: #cb4806; /* Açık gri Bootstrap varsayılanı */
-    border-right: 10px solid #ebae1e; /* İnce ayırıcı çizgi */
+    background-color: #f8f9fa; /* Açık gri Bootstrap varsayılanı */
+    border-right: 1px solid #ddd; /* İnce ayırıcı çizgi */
     height: 100vh; /* Tum ekran yüksekliği */
     padding: 20px; /* İç boşluk */
 }
@@ -12,3 +12,14 @@
 .nav-link {
     margin-bottom: 10px; /* Alt boşluk */
 }
+
+/* Task listesinin uzerinde task'in ustune geldiginde golge olusturur */
+.task-item {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.task-item:hover {
+    background-color: #f8f9fa;
+}
+/*----------------------------*/

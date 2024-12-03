@@ -1,0 +1,92 @@
+<div class="task-list">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>Your Tasks</h3>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTaskModal">Add New Task</button>
+    </div>
+    
+    <div class="list-group">
+        {% for task in tasks %}
+        <div class="list-group-item d-flex justify-content-between align-items-center task-item"
+             data-bs-toggle="modal" data-bs-target="#taskDetailModal-{{ task.id }}">
+            <div>
+                <h5>{{ task.title }}</h5>
+                <p>{{ task.description }}</p>
+            </div>
+            <div>
+                {% if task.is_completed %}
+                <span class="badge bg-success">Completed</span>
+                {% else %}
+                <span class="badge bg-warning">Pending</span>
+                {% endif %}
+            </div>
+        </div>
+    
+        <!-- Task Detail Modal -->
+        <div class="modal fade" id="taskDetailModal-{{ task.id }}" tabindex="-1" aria-labelledby="taskDetailModalLabel-{{ task.id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="taskDetailModalLabel-{{ task.id }}">{{ task.title }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Description:</strong> {{ task.description }}</p>
+                        <p><strong>Status:</strong> 
+                            {% if task.is_completed %}
+                            <span class="text-success">Completed</span>
+                            {% else %}
+                            <span class="text-warning">Pending</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- Delete Button -->
+                        <form action="{% url 'delete_task' task.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-muted">No tasks found. Start by adding a new task!</p>
+        {% endfor %}
+    </div>
+    
+    
+</div>
+
+<!-- Add Task Modal -->
+<div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" action="{% url 'add_task' %}">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTaskModalLabel">Add New Task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="taskTitle" class="form-label">Task Title</label>
+                        <input type="text" name="title" id="taskTitle" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="taskDescription" class="form-label">Task Description</label>
+                        <textarea name="description" id="taskDescription" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="is_completed" id="taskIsCompleted" class="form-check-input">
+                        <label for="taskIsCompleted" class="form-check-label">Mark as Completed</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
